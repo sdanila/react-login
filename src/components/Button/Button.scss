@@ -1,0 +1,13 @@
+.button {
+  border: none;
+  cursor: pointer;
+
+  &__sign {
+    background-color: #5885cb;
+    border-radius: 20px;
+    color: #fcf0f0;
+    width: 100px;
+    height: 35px;
+    margin: 3px auto 0;
+  }
+}

@@ -1,4 +1,8 @@
 import React from 'react';
+import { Form, Input, Button } from "../../components";
+
+import './Login.scss';
+
 
 const Login = () => {
   const [emailValue, setEmailValue] = React.useState('');
@@ -12,25 +16,25 @@ const Login = () => {
 
   return (
     <div className='login'>
-      <h1>Login</h1>
-      <p>Please enter your email and password</p>
-      <form onSubmit={onSubmit}>
-        <input
+      <h1 className='login__title'>Sign in</h1>
+      <p className='login__desc'>Please enter your email and password</p>
+      <Form onSubmit={onSubmit}>
+        <Input
           type="text"
           name="email"
           value={emailValue}
-          onChange={(e) => setEmailValue(e.target.value)}
+          onChange={setEmailValue}
           placeholder="Email"
         />
-        <input
+        <Input
           type="password"
           name='password'
           value={passwordValue}
-          onChange={(e) => setPasswordValue(e.target.value)}
+          onChange={setPasswordValue}
           placeholder='Password'
         />
-        <button type='submit'>Sign in</button>
-      </form>
+        <Button type='submit' className='button__sign'>Sign in</Button>
+      </Form>
     </div>
   );
 };
