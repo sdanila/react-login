@@ -1,13 +1,11 @@
 import React from 'react';
-import { Login, Registration, ChangePassword } from "./pages";
+import {AppRoute} from "./routes";
 
 
 function App() {
   return (
     <div className="App">
-      <Login />
-      <Registration />
-      <ChangePassword />
+      <AppRoute />
     </div>
   );
 }
