@@ -1,5 +1,5 @@
 import React from 'react';
-import { Login, Registration } from "./pages";
+import { Login, Registration, ChangePassword } from "./pages";
 
 
 function App() {
@@ -7,6 +7,7 @@ function App() {
     <div className="App">
       <Login />
       <Registration />
+      <ChangePassword />
     </div>
   );
 }
