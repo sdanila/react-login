@@ -1,12 +1,15 @@
 import React from 'react';
-import {AppRoute} from "./routes";
+import { AppRoute } from "./routes";
+
+import Layout from './hoc/Layout';
 
 
 function App() {
+
   return (
-    <div className="App">
+    <Layout>
       <AppRoute />
-    </div>
+    </Layout>
   );
 }
 
