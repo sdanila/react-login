@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { loginSchema } from "../../utils/ValidationSchema";
 import { loginSelector } from "../../redux/selectors";
-import { reducerLoginSaveState } from "../../redux/actions/login";
+import {reducerLoginSaveState, sagaLoginRequest} from "../../redux/actions/login";
 
 import { Form, Input, Button } from "../../components";
 
@@ -27,7 +27,7 @@ const Login = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     loginSchema.validate({email: emailValue, password: passwordValue})
-      .then(res => console.log(res))
+      .then(res => dispatch(sagaLoginRequest({...res})))
       .catch(error => console.log(error.errors));
   }
 

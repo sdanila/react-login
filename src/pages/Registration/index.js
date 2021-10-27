@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { RegistrationSchema } from "../../utils/ValidationSchema";
 import { registrationSelector } from "../../redux/selectors";
-import { reducerRegistrationSaveState } from "../../redux/actions/registration";
+import {reducerRegistrationSaveState, sagaRegistrationRequest} from "../../redux/actions/registration";
 
 import { Form, Input, Button } from "../../components";
 
@@ -34,7 +34,7 @@ const Registration = () => {
       password: passwordValue,
       repeatPassword: repeatPasswordValue
     })
-      .then((result)=>console.log(result))
+      .then((result) => dispatch(sagaRegistrationRequest({...result})))
       .catch(error => console.log(error.errors));
   }
 

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { changePasswordSchema } from '../../utils/ValidationSchema'
 import { changePasswordSelector } from "../../redux/selectors";
-import { reducerChangePassSaveState } from "../../redux/actions/changePassword";
+import {reducerChangePassSaveState, sagaChangePasswordRequest} from "../../redux/actions/changePassword";
 
 import { Button, Form, Input } from "../../components";
 
@@ -34,7 +34,7 @@ const ChangePassword = () => {
       newPassword: newPasswordValue,
       repeatPassword: repeatPasswordValue
     })
-      .then(res => console.log(res))
+      .then(res => dispatch(sagaChangePasswordRequest({...res})))
       .catch(error => console.log(error.errors));
   }
 
