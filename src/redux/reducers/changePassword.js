@@ -3,7 +3,7 @@ import {REDUCER_SAVE_CHANGE_PASSWORD_STATE} from "../actions";
 const initialState = {
   oldPassword: '',
   newPassword: '',
-  resetPassword: ''
+  repeatPassword: ''
 }
 
 const changePassword = (state = initialState, action) => {
