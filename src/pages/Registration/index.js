@@ -1,15 +1,31 @@
 import React from 'react';
-import { Form, Input, Button } from "../../components";
+import { useDispatch, useSelector } from "react-redux";
 
-import {RegistrationSchema} from "../../utils/ValidationSchema";
+import { RegistrationSchema } from "../../utils/ValidationSchema";
+import { registrationSelector } from "../../redux/selectors";
+import { reducerRegistrationSaveState } from "../../redux/actions/registration";
+
+import { Form, Input, Button } from "../../components";
 
 import './Registration.scss';
 
 
 const Registration = () => {
-  const [emailValue, setEmailValue] = React.useState('');
-  const [passwordValue, setPasswordValue] = React.useState('');
-  const [repeatPasswordValue, setRepeatPasswordValue] = React.useState('');
+  const dispatch = useDispatch();
+  const { email, password, repeatPassword } = useSelector(registrationSelector)
+
+  const [emailValue, setEmailValue] = React.useState(email);
+  const [passwordValue, setPasswordValue] = React.useState(password);
+  const [repeatPasswordValue, setRepeatPasswordValue] = React.useState(repeatPassword);
+
+  React.useEffect(() => {
+
+    return () => dispatch(reducerRegistrationSaveState({
+      email: emailValue,
+      password: passwordValue,
+      repeatPassword: repeatPasswordValue
+    }));
+  }, [dispatch, emailValue, passwordValue, repeatPasswordValue]);
 
   const onSubmit = (e) => {
     e.preventDefault();

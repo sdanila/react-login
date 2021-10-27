@@ -1,14 +1,28 @@
 import React from 'react';
-import { Form, Input, Button } from "../../components";
+import { useDispatch, useSelector } from "react-redux";
 
-import {loginSchema} from "../../utils/ValidationSchema";
+import { loginSchema } from "../../utils/ValidationSchema";
+import { loginSelector } from "../../redux/selectors";
+import { reducerLoginSaveState } from "../../redux/actions/login";
+
+import { Form, Input, Button } from "../../components";
 
 import './Login.scss';
 
 
 const Login = () => {
-  const [emailValue, setEmailValue] = React.useState('');
-  const [passwordValue, setPasswordValue] = React.useState('');
+  const dispatch = useDispatch();
+  const { email, password } = useSelector(loginSelector);
+
+  const [emailValue, setEmailValue] = React.useState(email);
+  const [passwordValue, setPasswordValue] = React.useState(password);
+
+  React.useEffect(() => {
+
+    return () => dispatch(reducerLoginSaveState(
+      { email: emailValue, password: passwordValue }
+      ));
+  }, [dispatch, emailValue, passwordValue]);
 
   const onSubmit = (e) => {
     e.preventDefault();

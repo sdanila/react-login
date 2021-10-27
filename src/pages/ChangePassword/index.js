@@ -1,15 +1,31 @@
 import React from 'react';
-import { Button, Form, Input } from "../../components";
+import { useDispatch, useSelector } from "react-redux";
 
 import { changePasswordSchema } from '../../utils/ValidationSchema'
+import { changePasswordSelector } from "../../redux/selectors";
+import { reducerChangePassSaveState } from "../../redux/actions/changePassword";
+
+import { Button, Form, Input } from "../../components";
 
 import './ChangePassword.scss';
 
 
 const ChangePassword = () => {
-  const [oldPasswordValue, setOldPasswordValue] = React.useState('');
-  const [newPasswordValue, setNewPasswordValue] = React.useState('');
-  const [repeatPasswordValue, setRepeatPasswordValue] = React.useState('');
+  const dispatch = useDispatch();
+  const { oldPassword, newPassword, repeatPassword } = useSelector(changePasswordSelector);
+
+  const [oldPasswordValue, setOldPasswordValue] = React.useState(oldPassword);
+  const [newPasswordValue, setNewPasswordValue] = React.useState(newPassword);
+  const [repeatPasswordValue, setRepeatPasswordValue] = React.useState(repeatPassword);
+
+  React.useEffect(() => {
+
+    return () => dispatch(reducerChangePassSaveState({
+      oldPassword: oldPasswordValue,
+      newPassword: newPasswordValue,
+      repeatPassword: repeatPasswordValue
+    }))
+  }, [dispatch, oldPasswordValue, newPasswordValue, repeatPasswordValue]);
 
   const onSubmit = (e) => {
     e.preventDefault();
