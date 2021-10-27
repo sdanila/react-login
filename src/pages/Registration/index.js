@@ -1,6 +1,8 @@
 import React from 'react';
 import { Form, Input, Button } from "../../components";
 
+import {RegistrationSchema} from "../../utils/ValidationSchema";
+
 import './Registration.scss';
 
 
@@ -9,8 +11,15 @@ const Registration = () => {
   const [passwordValue, setPasswordValue] = React.useState('');
   const [repeatPasswordValue, setRepeatPasswordValue] = React.useState('');
 
-  const onSubmit = () => {
-
+  const onSubmit = (e) => {
+    e.preventDefault();
+    RegistrationSchema.validate({
+      email: emailValue,
+      password: passwordValue,
+      repeatPassword: repeatPasswordValue
+    })
+      .then((result)=>console.log(result))
+      .catch(error => console.log(error.errors));
   }
 
   return (

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button, Form, Input } from "../../components";
 
+import { changePasswordSchema } from '../../utils/ValidationSchema'
+
 import './ChangePassword.scss';
 
 
@@ -9,8 +11,15 @@ const ChangePassword = () => {
   const [newPasswordValue, setNewPasswordValue] = React.useState('');
   const [repeatPasswordValue, setRepeatPasswordValue] = React.useState('');
 
-  const onSubmit = () => {
-
+  const onSubmit = (e) => {
+    e.preventDefault();
+    changePasswordSchema.validate({
+      oldPassword: oldPasswordValue,
+      newPassword: newPasswordValue,
+      repeatPassword: repeatPasswordValue
+    })
+      .then(res => console.log(res))
+      .catch(error => console.log(error.errors));
   }
 
   return (

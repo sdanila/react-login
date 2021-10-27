@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Input, Button } from "../../components";
 
-import {loginValidationSchema} from "../../utils/ValidationSchema";
+import {loginSchema} from "../../utils/ValidationSchema";
 
 import './Login.scss';
 
@@ -12,8 +12,8 @@ const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    loginValidationSchema.validate({emailValue, passwordValue})
-      .then(() => console.log('esss'))
+    loginSchema.validate({email: emailValue, password: passwordValue})
+      .then(res => console.log(res))
       .catch(error => console.log(error.errors));
   }
 
