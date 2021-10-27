@@ -1,6 +1,8 @@
 import React from 'react';
 import { Form, Input, Button } from "../../components";
 
+import {loginValidationSchema} from "../../utils/ValidationSchema";
+
 import './Login.scss';
 
 
@@ -8,10 +10,11 @@ const Login = () => {
   const [emailValue, setEmailValue] = React.useState('');
   const [passwordValue, setPasswordValue] = React.useState('');
 
-  const onSubmit = () => {
-    alert(JSON.stringify(
-      {emailValue, passwordValue}, null, 2
-    ));
+  const onSubmit = (e) => {
+    e.preventDefault();
+    loginValidationSchema.validate({emailValue, passwordValue})
+      .then(() => console.log('esss'))
+      .catch(error => console.log(error.errors));
   }
 
   return (
@@ -23,14 +26,14 @@ const Login = () => {
           type="text"
           name="email"
           value={emailValue}
-          onChange={setEmailValue}
+          setValue={setEmailValue}
           placeholder="Email"
         />
         <Input
           type="password"
           name='password'
           value={passwordValue}
-          onChange={setPasswordValue}
+          setValue={setPasswordValue}
           placeholder='Password'
         />
         <Button type='submit' className='button__sign'>Sign in</Button>
