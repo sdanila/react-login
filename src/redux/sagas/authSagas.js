@@ -1,11 +1,12 @@
 import axios from 'axios';
-import { takeLatest, call } from 'redux-saga/effects';
+import { takeLatest, call, put } from 'redux-saga/effects';
 
 import {
   SAGA_CHANGE_PASSWORD_REQUEST,
   SAGA_LOGIN_REQUEST,
   SAGA_REGISTRATION_REQUEST
 } from "../actions";
+import {reducerSuccessAuth} from "../actions/login";
 
 
 function checkEmail({answer, email}) {
@@ -30,6 +31,7 @@ export function* loginSagaWorker({payload}) {
     if (emailCheck === undefined) throw Error('User with this email was not found');
     const passwordCheck = yield call(checkPassword, {answer, password});
     if (passwordCheck === undefined) throw Error('Wrong password');
+    yield put(reducerSuccessAuth({ email, auth: true }));
   } catch (e) {
     console.log(e);
   }
@@ -48,6 +50,7 @@ function* registrationSagaWorker({payload}) {
   const {email, password} = payload;
   try {
     yield call(registrationRequest, {email, password});
+    yield put(reducerSuccessAuth({ email, auth: true }));
   } catch (e) {
     console.error(e);
   }

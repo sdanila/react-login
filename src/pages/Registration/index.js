@@ -1,8 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from 'react-router-dom';
 
 import { RegistrationSchema } from "../../utils/ValidationSchema";
-import { registrationSelector } from "../../redux/selectors";
+import {profileSelector, registrationSelector} from "../../redux/selectors";
 import {reducerRegistrationSaveState, sagaRegistrationRequest} from "../../redux/actions/registration";
 
 import { Form, Input, Button } from "../../components";
@@ -12,11 +13,18 @@ import './Registration.scss';
 
 const Registration = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { email, password, repeatPassword } = useSelector(registrationSelector)
+  const { auth } = useSelector(profileSelector);
 
   const [emailValue, setEmailValue] = React.useState(email);
   const [passwordValue, setPasswordValue] = React.useState(password);
   const [repeatPasswordValue, setRepeatPasswordValue] = React.useState(repeatPassword);
+
+  React.useEffect(() => {
+
+    auth && history.push('/profile');
+  }, [auth, history]);
 
   React.useEffect(() => {
 

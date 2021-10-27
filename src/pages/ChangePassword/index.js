@@ -1,8 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from 'react-router-dom';
 
 import { changePasswordSchema } from '../../utils/ValidationSchema'
-import { changePasswordSelector } from "../../redux/selectors";
+import {changePasswordSelector, profileSelector} from "../../redux/selectors";
 import {reducerChangePassSaveState, sagaChangePasswordRequest} from "../../redux/actions/changePassword";
 
 import { Button, Form, Input } from "../../components";
@@ -12,11 +13,18 @@ import './ChangePassword.scss';
 
 const ChangePassword = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { oldPassword, newPassword, repeatPassword } = useSelector(changePasswordSelector);
+  const { auth } = useSelector(profileSelector);
 
   const [oldPasswordValue, setOldPasswordValue] = React.useState(oldPassword);
   const [newPasswordValue, setNewPasswordValue] = React.useState(newPassword);
   const [repeatPasswordValue, setRepeatPasswordValue] = React.useState(repeatPassword);
+
+  React.useEffect(() => {
+
+    !auth && history.push('/login');
+  }, [auth, history]);
 
   React.useEffect(() => {
 

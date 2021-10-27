@@ -7,6 +7,7 @@ import './Menu.scss';
 const links = [
   {to:'/login', label:'Sign in'},
   {to:'/registration', label:'Sign up'},
+  {to:'/profile', label:'Profile'},
   {to:'/change-password', label:'Change password'},
 ]
 

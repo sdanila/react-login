@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from 'react-router-dom';
 
 import { loginSchema } from "../../utils/ValidationSchema";
-import { loginSelector } from "../../redux/selectors";
-import {reducerLoginSaveState, sagaLoginRequest} from "../../redux/actions/login";
+import { loginSelector, profileSelector } from "../../redux/selectors";
+import { reducerLoginSaveState, sagaLoginRequest } from "../../redux/actions/login";
 
 import { Form, Input, Button } from "../../components";
 
@@ -12,10 +13,17 @@ import './Login.scss';
 
 const Login = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { email, password } = useSelector(loginSelector);
+  const { auth } = useSelector(profileSelector);
 
   const [emailValue, setEmailValue] = React.useState(email);
   const [passwordValue, setPasswordValue] = React.useState(password);
+
+  React.useEffect(() => {
+
+    auth && history.push('/profile');
+  }, [auth, history]);
 
   React.useEffect(() => {
 
