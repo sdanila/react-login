@@ -1,20 +1,28 @@
 import React from 'react';
+import {useSelector} from "react-redux";
 import { Link } from 'react-router-dom';
+
+import {profileSelector} from "../../../redux/selectors";
 
 import './Menu.scss';
 
 
-const links = [
-  {to:'/login', label:'Sign in'},
-  {to:'/registration', label:'Sign up'},
-  {to:'/profile', label:'Profile'},
-  {to:'/change-password', label:'Change password'},
-]
-
-
 const Menu = ({visible, setVisible}) => {
+  const { auth } = useSelector((profileSelector));
 
-  const renderLinks = () => {
+  let links = [
+    {to:'/login', label:'Sign in'},
+    {to:'/registration', label:'Sign up'}
+  ]
+
+  if (auth) {
+    links = [
+      {to:'/profile', label:'Profile'},
+      {to:'/change-password', label:'Change password'}
+    ]
+  }
+
+  const renderLinks = (links) => {
     return links.map((link, index) => (
       <li key={index}>
         <Link
@@ -30,7 +38,7 @@ const Menu = ({visible, setVisible}) => {
   return (
     <nav className={`menu ${visible ? 'open' : 'close'}`}>
       <ul>
-        {renderLinks()}
+        {renderLinks(links)}
       </ul>
     </nav>
   );

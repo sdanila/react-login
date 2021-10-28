@@ -70,7 +70,7 @@ function* changePasswordSagaWorker({payload}) {
     const answer = yield call(loginRequest);
     const user = yield call(checkEmail, {answer, email});
     if (user.password !== oldPassword) throw new Error('Wrong password');
-    yield call(changePasswordRequest, {user, newPassword});g
+    yield call(changePasswordRequest, {user, newPassword});
   } catch (e) {
     console.error(e);
   }
