@@ -9,10 +9,10 @@ import {
   SAGA_REGISTRATION_REQUEST
 } from "../actions";
 import {reducerSuccessAuth} from "../actions/login";
+import {reducerSetAlert} from "../actions/alert";
 
 
 function checkEmail({answer, email}) {
-  console.log(answer.find(el => el.email === email), email, answer)
   return answer.find(el => el.email === email)
 }
 
@@ -30,8 +30,9 @@ export function* loginSagaWorker({payload}) {
     if (emailCheck === undefined) throw Error('User with this email was not found');
     if (emailCheck.password !== password) throw Error('Wrong password');
     yield put(reducerSuccessAuth({ email, auth: true }));
+    yield put(reducerSetAlert({success: 'Success sign in'}));
   } catch (e) {
-    console.log(e);
+    yield put(reducerSetAlert({error: e.message}));
   }
 }
 
@@ -49,8 +50,9 @@ function* registrationSagaWorker({payload}) {
   try {
     yield call(registrationRequest, {email, password});
     yield put(reducerSuccessAuth({ email, auth: true }));
+    yield put(reducerSetAlert({success: 'Success sign up'}));
   } catch (e) {
-    console.error(e);
+    yield put(reducerSetAlert({error: e.message}));
   }
 }
 
@@ -71,8 +73,9 @@ function* changePasswordSagaWorker({payload}) {
     const user = yield call(checkEmail, {answer, email});
     if (user.password !== oldPassword) throw new Error('Wrong password');
     yield call(changePasswordRequest, {user, newPassword});
+    yield put(reducerSetAlert({success: 'Success change password'}));
   } catch (e) {
-    console.error(e);
+    yield put(reducerSetAlert({error: e.message}));
   }
 }
 

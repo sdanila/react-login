@@ -1,0 +1,33 @@
+.notification {
+  position: absolute;
+  height: 30px;
+  padding: 0 15px;
+  border-radius: 15px;
+  right: 10%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease-in-out;
+
+  &__content {
+    color: white;
+  }
+
+  &.error {
+    background-color: #dc0f0f
+  }
+
+  &.success {
+    background-color: #188018
+  }
+
+  &.active {
+    top: 50px;
+    transform: translateX(0);
+  }
+
+  &.close {
+    transform: translateY(-100%);
+  }
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Toggle } from "../../components";
+import { Menu, Toggle, Alert } from "../../components";
 
 import './Layout.scss';
 
@@ -17,6 +17,8 @@ const Layout = ({children}) => {
         visible={visibleMenu}
         setVisible={setVisibleMenu}
       />
+
+      <Alert />
 
       <main>
         {children}
